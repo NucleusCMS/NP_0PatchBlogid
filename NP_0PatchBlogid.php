@@ -1,4 +1,4 @@
-<?php
+'<?php
 /*
  * NP_0PatchBlogid
  *
@@ -22,7 +22,7 @@
  * 0.0.9 add event procedure PreSendContentType
  * 0.0.10 add etc. etc. etc.
  * 0.0.11 add REQUEST_URI handling
- * 0.0.12 tiny bug fix
+ * 0.0.12 tiny bug fix'
  * 0.0.13 add for Magical and ItemNaveEx
  * 0.0.14 branch testing code and bug fix
  * 0.0.15 bug fix handling page= in REQUEST_URI
@@ -148,11 +148,8 @@ class NP_0PatchBlogid extends NucleusPlugin
 
     function event_PreSendContentType($arg)
     {
-        global $CONF, $blogid, $archivelist, $archive;
-        global $itemid, $memberid, $catid;
-        global $manager;
+        global $blogid, $archivelist, $archive;
         global $HTTP_SERVER_VARS;
-        global $parsed;
 
         if (strtolower($arg['pageType']) !== 'skin') {
 			return;
