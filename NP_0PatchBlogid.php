@@ -203,12 +203,12 @@ class NP_0PatchBlogid extends NucleusPlugin
             }
             if (preg_match('/page[\/_0-9]/', $server_script_name)) {
                 $pathArray = explode('/', $server_script_name);
-                for ($i = 0; $i < count($pathArray); $i++) {
-                    if ($pathArray[$i] === 'page') {
+                foreach ($pathArray as $i => $iValue) {
+                    if ($iValue === 'page') {
                         $i++;
                         if ($i < count($pathArray)) {
-                            $pathArray[$i] = intVal($pathArray[$i]);
-                            $_GET['page'] = intVal($pathArray[$i]);
+                            $pathArray[$i] = intVal($iValue);
+                            $_GET['page'] = intVal($iValue);
                         }
                         $i++;
                         if ($i < sizeof($pathArray)) $trush = array_pop($pathArray);
