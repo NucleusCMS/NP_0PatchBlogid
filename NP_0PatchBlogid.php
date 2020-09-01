@@ -149,7 +149,6 @@ class NP_0PatchBlogid extends NucleusPlugin
     function event_PreSendContentType($arg)
     {
         global $blogid, $archivelist, $archive;
-        global $HTTP_SERVER_VARS;
 
         if (strtolower($arg['pageType']) !== 'skin') {
 			return;
@@ -182,10 +181,6 @@ class NP_0PatchBlogid extends NucleusPlugin
             $archive = sprintf('%04d-%02d', $y, $m);
         }
 
-        // pager check for ShowBlogs
-        if (isset($HTTP_SERVER_VARS['QUERY_STRING'])) {
-			$server_query_string = $HTTP_SERVER_VARS['QUERY_STRING'];
-		}
         if (isset($_SERVER['QUERY_STRING'])) {
 			$server_query_string = $_SERVER['QUERY_STRING'];
 		}
@@ -197,12 +192,8 @@ class NP_0PatchBlogid extends NucleusPlugin
             }
             $GETArray = array_map('htmlspecialchars', $GETArray);
             $server_query_string = implode('&', $GETArray);
-            $HTTP_SERVER_VARS['QUERY_STRING'] = $server_query_string;
             $_SERVER['QUERY_STRING'] = $server_query_string;
         }
-        if (isset($HTTP_SERVER_VARS['REQUEST_URI'])) {
-			$server_request_uri = $HTTP_SERVER_VARS['REQUEST_URI'];
-		}
         if (isset($_SERVER['REQUEST_URI'])) {
 			$server_request_uri = $_SERVER['REQUEST_URI'];
 		}
@@ -258,16 +249,11 @@ class NP_0PatchBlogid extends NucleusPlugin
             } else {
                 $server_request_uri = $server_script_name;
             }
-            $HTTP_SERVER_VARS['REQUEST_URI'] = $server_request_uri;
             $_SERVER['REQUEST_URI'] = $server_request_uri;
         }
         if (isset($_SERVER['HTTP_USER_AGENT'])) {
 			$_SERVER['HTTP_USER_AGENT'] = preg_replace('/[<>]/', ''
 				, $_SERVER['HTTP_USER_AGENT']);
-		}
-        if (isset($HTTP_SERVER_VARS['HTTP_USER_AGENT'])) {
-			$HTTP_SERVER_VARS['HTTP_USER_AGENT'] = preg_replace('/[<>]/', ''
-				, $HTTP_SERVER_VARS['HTTP_USER_AGENT']);
 		}
         // for ItemNaviEX
         if (isset($_GET['page'])) {
