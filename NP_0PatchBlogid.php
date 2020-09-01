@@ -49,13 +49,6 @@
  * 0.2.5 care for loop
  *
  */
-if (!function_exists('sql_table')) {
-    function sql_table($name)
-    {
-        return 'nucleus_' . $name;
-    }
-}
-
 class NP_0PatchBlogid extends NucleusPlugin
 {
     function getName()
