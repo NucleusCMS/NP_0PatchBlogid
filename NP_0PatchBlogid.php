@@ -58,7 +58,6 @@ if (!function_exists('sql_table')) {
 
 class NP_0PatchBlogid extends NucleusPlugin
 {
-
     function getName()
     {
         return '0PatchBlogid';
@@ -120,8 +119,6 @@ class NP_0PatchBlogid extends NucleusPlugin
      */
     function install()
     {
-        // this function is written by shizuki.
-        //Plugins sort
         $myid = $this->getID();
         $res = sql_query('SELECT pid, porder FROM ' . sql_table('plugin'));
         while ($p = mysql_fetch_object($res)) {
@@ -153,28 +150,23 @@ class NP_0PatchBlogid extends NucleusPlugin
         if (strtolower($arg['pageType']) !== 'skin') {
 			return;
 		}
-        // getVar for page= searching
+
         $get_var_page = $this->_redoMagic(getVar('page'));
-        // check blogid
+
         if (is_numeric($blogid)) {
 			$blogid = intVal($blogid);
 		} else {
 			$blogid = getBlogIDFromName($blogid);
 		}
 
-        // check archivelist
         if (!is_numeric($archivelist)) {
 			$archivelist = getBlogIDFromName($archivelist);
 		}
         if ($archivelist) {
 			$blogid = $archivelist;
 		}
-        // archive check
-        // and more
-        // if (! $blogid) doError(_ERROR_NOSUCHBLOG);
 
         sscanf($archive, '%d-%d-%d', $y, $m, $d);
-        // directed by shizuki
         if ($y && $m && $d) {
             $archive = sprintf('%04d-%02d-%02d', $y, $m, $d);
         } elseif ($y && $m && !$d) {
@@ -216,7 +208,6 @@ class NP_0PatchBlogid extends NucleusPlugin
                 $GETArray = array_map('htmlspecialchars', $GETArray);
                 $server_query_string = implode('&', $GETArray);
             }
-            // for fancyURL URI check REQUEST_URI if pager use it
             if (preg_match('/page[\/_0-9]/', $server_script_name)) {
                 $pathArray = explode('/', $server_script_name);
                 for ($i = 0; $i < count($pathArray); $i++) {
@@ -224,7 +215,6 @@ class NP_0PatchBlogid extends NucleusPlugin
                         $i++;
                         if ($i < count($pathArray)) {
                             $pathArray[$i] = intVal($pathArray[$i]);
-                            // ItemNaviEX breadcrumbslist fix
                             $_GET['page'] = intVal($pathArray[$i]);
                         }
                         $i++;
@@ -234,13 +224,10 @@ class NP_0PatchBlogid extends NucleusPlugin
                 $server_script_name = implode('/', $pathArray);
             }
 
-            //for magicalURL searching page_ in $server_script_name
             if (strpos($server_script_name, 'page_') !== false) {
                 $temp_info = explode('page_', $server_script_name);
                 $server_script_name = $temp_info[0] . 'page_' . (int)$temp_info[1];
-                // ItemNaviEX breadcrumbslist fix
                 $_GET['page'] = (int)$temp_info[1];
-                // for magical no use last slash
                 $server_script_name = trim($server_script_name, '/');
             }
             $server_script_name = preg_replace('|[^a-z0-9-~+_.?#=&;/,:@%]|i', '', $server_script_name);
@@ -255,7 +242,6 @@ class NP_0PatchBlogid extends NucleusPlugin
 			$_SERVER['HTTP_USER_AGENT'] = preg_replace('/[<>]/', ''
 				, $_SERVER['HTTP_USER_AGENT']);
 		}
-        // for ItemNaviEX
         if (isset($_GET['page'])) {
 			$_GET['page'] = intVal($_GET['page']);
 		}
