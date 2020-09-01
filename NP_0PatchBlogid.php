@@ -194,7 +194,7 @@ class NP_0PatchBlogid extends NucleusPlugin
 
     function getVersion()
     {
-        return '0.2.5';
+        return '0.2.6';
     }
 
     function getMinNucleusVersion()

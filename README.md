@@ -1,5 +1,6 @@
 # NP_0PatchBlogid
 
+ * 0.2.6 refactor
  * 0.2.5 care for loop
  * 0.2.3 fix excess page= realy?
  * 0.2.2 bug fix $server_query_string in $server_request_uri
