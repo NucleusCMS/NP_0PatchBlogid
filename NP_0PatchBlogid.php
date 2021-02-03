@@ -164,16 +164,16 @@ class NP_0PatchBlogid extends NucleusPlugin
                         , $myid
                     )
                 );
-            } else {
-                sql_query(
-                    sprintf(
-                        'UPDATE %s SET porder = %d WHERE pid = %d'
-                        , sql_table('plugin')
-                        , $p->porder + 1
-                        , $p->pid
-                    )
-                );
+                continue;
             }
+            sql_query(
+                sprintf(
+                    'UPDATE %s SET porder = %d WHERE pid = %d'
+                    , sql_table('plugin')
+                    , $p->porder + 1
+                    , $p->pid
+                )
+            );
         }
     }
 
