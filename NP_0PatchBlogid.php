@@ -1,4 +1,4 @@
-'<?php
+<?php
 /*
  * NP_0PatchBlogid
  *
@@ -10,6 +10,7 @@
  * of the License, or (at your option) any later version.
  *
  */
+
 class NP_0PatchBlogid extends NucleusPlugin
 {
     function getEventList()
@@ -22,23 +23,23 @@ class NP_0PatchBlogid extends NucleusPlugin
         global $blogid, $archivelist, $archive;
 
         if (strtolower($arg['pageType']) !== 'skin') {
-			return;
-		}
+            return;
+        }
 
         $get_var_page = $this->_redoMagic(getVar('page'));
 
         if (is_numeric($blogid)) {
-			$blogid = intVal($blogid);
-		} else {
-			$blogid = getBlogIDFromName($blogid);
-		}
+            $blogid = intVal($blogid);
+        } else {
+            $blogid = getBlogIDFromName($blogid);
+        }
 
         if (!is_numeric($archivelist)) {
-			$archivelist = getBlogIDFromName($archivelist);
-		}
+            $archivelist = getBlogIDFromName($archivelist);
+        }
         if ($archivelist) {
-			$blogid = $archivelist;
-		}
+            $blogid = $archivelist;
+        }
 
         sscanf($archive, '%d-%d-%d', $y, $m, $d);
         if ($y && $m && $d) {
@@ -48,8 +49,8 @@ class NP_0PatchBlogid extends NucleusPlugin
         }
 
         if (isset($_SERVER['QUERY_STRING'])) {
-			$server_query_string = $_SERVER['QUERY_STRING'];
-		}
+            $server_query_string = $_SERVER['QUERY_STRING'];
+        }
         if ($server_query_string) {
             $GETArray = explode('&', $server_query_string);
             if ($get_var_page) {
@@ -61,8 +62,8 @@ class NP_0PatchBlogid extends NucleusPlugin
             $_SERVER['QUERY_STRING'] = $server_query_string;
         }
         if (isset($_SERVER['REQUEST_URI'])) {
-			$server_request_uri = $_SERVER['REQUEST_URI'];
-		}
+            $server_request_uri = $_SERVER['REQUEST_URI'];
+        }
 
         // checking REQUEST_URI
         if ($server_request_uri) {
@@ -113,12 +114,15 @@ class NP_0PatchBlogid extends NucleusPlugin
             $_SERVER['REQUEST_URI'] = $server_request_uri;
         }
         if (isset($_SERVER['HTTP_USER_AGENT'])) {
-			$_SERVER['HTTP_USER_AGENT'] = preg_replace('/[<>]/', ''
-				, $_SERVER['HTTP_USER_AGENT']);
-		}
+            $_SERVER['HTTP_USER_AGENT'] = preg_replace(
+                '/[<>]/',
+                '',
+                $_SERVER['HTTP_USER_AGENT']
+            );
+        }
         if (isset($_GET['page'])) {
-			$_GET['page'] = intVal($_GET['page']);
-		}
+            $_GET['page'] = intVal($_GET['page']);
+        }
     }
 
     /**
@@ -159,19 +163,19 @@ class NP_0PatchBlogid extends NucleusPlugin
             if ($p->pid == $myid) {
                 sql_query(
                     sprintf(
-                        'UPDATE %s SET porder=1 WHERE pid=%d'
-                        , sql_table('plugin')
-                        , $myid
+                        'UPDATE %s SET porder=1 WHERE pid=%d',
+                        sql_table('plugin'),
+                        $myid
                     )
                 );
                 continue;
             }
             sql_query(
                 sprintf(
-                    'UPDATE %s SET porder = %d WHERE pid = %d'
-                    , sql_table('plugin')
-                    , $p->porder + 1
-                    , $p->pid
+                    'UPDATE %s SET porder = %d WHERE pid = %d',
+                    sql_table('plugin'),
+                    $p->porder + 1,
+                    $p->pid
                 )
             );
         }
@@ -211,5 +215,4 @@ class NP_0PatchBlogid extends NucleusPlugin
     {
         return 0;
     }
-
 }
